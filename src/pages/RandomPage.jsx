@@ -30,24 +30,18 @@ const SUBJECTS = [
 export default function RandomPage() {
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
-
-  // Modal state
   const [selectedBook, setSelectedBook] = useState(null);
   const [open, setOpen] = useState(false);
-
-  // subject cycling index
   const [subjectIndex, setSubjectIndex] = useState(0);
 
   const handleOpen = (book) => {
     setSelectedBook(book);
     setOpen(true);
   };
-
   const handleClose = () => setOpen(false);
 
   const handleSurprise = () => {
     setLoading(true);
-
     const subject = SUBJECTS[subjectIndex];
     setSubjectIndex((prev) => (prev + 1) % SUBJECTS.length);
 
@@ -60,99 +54,117 @@ export default function RandomPage() {
         }));
         setResults(booksWithRatings);
       })
-      .catch((error) => {
-        console.error("Error fetching random books:", error);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+      .catch(console.error)
+      .finally(() => setLoading(false));
   };
 
   const hasBooks = results.length > 0 || loading;
 
-  return (
-    <>
-      {/* Always show main header */}
-      <Box sx={{ textAlign: "center", mt: hasBooks ? 4 : 0 }}>
-        <Typography variant="h3" gutterBottom>
-          Discover Something New
-        </Typography>
-      </Box>
+  const renderBookGrid = (data, count) =>
+    (loading ? Array.from(new Array(count)) : data).map((book, index) => (
+      <Grid
+        item
+        key={book?.key || index}
+        xs={12}
+        sm={6}
+        md={2} // 6 per row
+        sx={{ display: "flex", justifyContent: "center" }}
+      >
+        {loading ? (
+          <Card sx={{ width: 190, height: 320 }}>
+            <Skeleton variant="rectangular" width="100%" height={180} />
+            <CardContent
+              sx={{
+                flexGrow: 1,
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+                p: 1,
+              }}
+            >
+              <div>
+                <Skeleton variant="text" sx={{ mt: 1 }} />
+                <Skeleton variant="text" width="60%" />
+              </div>
+              <Skeleton variant="text" width="40%" />
+            </CardContent>
+          </Card>
+        ) : (
+          <BookCard
+            title={book.title}
+            author={book.author_name?.[0] || "Unknown Author"}
+            year={book.first_publish_year}
+            coverUrl={book.cover_i}
+            rating={book.rating}
+            onClick={() => handleOpen(book)}
+            width={190}
+          />
+        )}
+      </Grid>
+    ));
 
-      {!hasBooks ? (
-        // Centered button when no books yet
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            height: "60vh",
-          }}
-        >
-          <Button
-            variant="contained"
-            onClick={handleSurprise}
-            disabled={loading}
-            sx={{ mt: 3 }}
+  return (
+    <Box sx={{ mt: 5, fontFamily: '"Inter", sans-serif', mb: 10 }}>
+      <Box
+        sx={{
+          maxWidth: "80%", // same as navbar
+          mx: "auto",
+          textAlign: "center",
+        }}
+      >
+        {!hasBooks ? (
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              height: "70vh",
+            }}
           >
-            {loading ? "Loading..." : "Surprise Me"}
-          </Button>
-        </Box>
-      ) : (
-        <>
-          {/* Button stays on top after loading */}
-          <Box sx={{ display: "flex", justifyContent: "center", mb: 3 }}>
+            <Typography variant="h3" gutterBottom>
+              Discover Something New
+            </Typography>
+            <Typography
+              variant="body2"
+              sx={{
+                fontFamily: '"Inter", sans-serif',
+                color: "text.secondary",
+                textAlign: "center",
+                maxWidth: 800,
+                mb: 4,
+              }}
+            >
+              Click the button below to get a random selection of books from
+              various genres.
+            </Typography>
             <Button
               variant="contained"
               onClick={handleSurprise}
               disabled={loading}
             >
-              {loading ? "Loading..." : "Surprise Me Again"}
+              {loading ? "Loading..." : "Surprise Me"}
             </Button>
           </Box>
+        ) : (
+          <>
+            <Button
+              variant="contained"
+              onClick={handleSurprise}
+              disabled={loading}
+              sx={{ mb: 3 }}
+            >
+              {loading ? "Loading..." : "Surprise Me Again"}
+            </Button>
 
-          {/* Results header */}
-
-          <Grid container spacing={2}>
-            {(loading ? Array.from(new Array(12)) : results).map(
-              (book, index) => (
-                <Grid
-                  item
-                  key={book?.key || index}
-                  size={3}
-                  sx={{ display: "flex" }}
-                >
-                  {loading ? (
-                    <Card sx={{ width: "100%" }}>
-                      <CardContent>
-                        <Skeleton
-                          variant="rectangular"
-                          width="100%"
-                          height={140}
-                        />
-                        <Skeleton variant="text" sx={{ mt: 2 }} />
-                        <Skeleton variant="text" width="60%" />
-                      </CardContent>
-                    </Card>
-                  ) : (
-                    <BookCard
-                      title={book.title}
-                      author={book.author_name?.[0] || "Unknown Author"}
-                      year={book.first_publish_year}
-                      coverUrl={book.cover_i}
-                      rating={book.rating}
-                      onClick={() => handleOpen(book)}
-                    />
-                  )}
-                </Grid>
-              )
-            )}
-          </Grid>
-        </>
-      )}
+            <Grid container spacing={2} sx={{ justifyContent: "center" }}>
+              {renderBookGrid(results, 12)}
+            </Grid>
+          </>
+        )}
+      </Box>
 
       <BookModal open={open} handleClose={handleClose} book={selectedBook} />
-    </>
+    </Box>
   );
 }
