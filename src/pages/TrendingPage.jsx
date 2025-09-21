@@ -1,14 +1,8 @@
-import {
-  Grid,
-  Typography,
-  Card,
-  CardContent,
-  Skeleton,
-  Container,
-} from "@mui/material";
+import { Grid, Typography, Container } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import BookCard from "../components/BookCard";
+import BookCardSkeleton from "../components/BookCardSkeleton";
 import BookModal from "../components/BookModal";
 
 export default function TrendingPage() {
@@ -67,35 +61,11 @@ export default function TrendingPage() {
           key={book?.key || index}
           xs={12}
           sm={6}
-          md={2} // 6 cards per row on medium+ screens
+          md={2}
           sx={{ display: "flex", justifyContent: "center" }}
         >
           {loading ? (
-            <Card
-              sx={{
-                width: 190,
-                height: 320,
-                display: "flex",
-                flexDirection: "column",
-              }}
-            >
-              <Skeleton variant="rectangular" width="100%" height={190} />
-              <CardContent
-                sx={{
-                  flexGrow: 1,
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                  p: 1,
-                }}
-              >
-                <div>
-                  <Skeleton variant="text" sx={{ mt: 1 }} />
-                  <Skeleton variant="text" width="60%" />
-                </div>
-                <Skeleton variant="text" width="40%" />
-              </CardContent>
-            </Card>
+            <BookCardSkeleton width={180} />
           ) : (
             <BookCard
               title={book.title}
@@ -104,8 +74,7 @@ export default function TrendingPage() {
               coverUrl={book.cover_i}
               rating={book.rating}
               onClick={() => handleOpen(book)}
-              width={190}
-              py={2}
+              width={180}
             />
           )}
         </Grid>
@@ -123,7 +92,6 @@ export default function TrendingPage() {
         mb: 10,
       }}
     >
-      {/* Trending Books */}
       <Typography variant="h2" gutterBottom sx={{ fontWeight: 500, mb: 5 }}>
         Trending Books Today
       </Typography>
@@ -131,7 +99,6 @@ export default function TrendingPage() {
         {renderBookGrid(books, 12)}
       </Grid>
 
-      {/* Fiction */}
       <Typography
         variant="h2"
         gutterBottom
@@ -143,7 +110,6 @@ export default function TrendingPage() {
         {renderBookGrid(fiction, 6)}
       </Grid>
 
-      {/* Science */}
       <Typography
         variant="h2"
         gutterBottom
@@ -155,7 +121,6 @@ export default function TrendingPage() {
         {renderBookGrid(science, 6)}
       </Grid>
 
-      {/* History */}
       <Typography
         variant="h2"
         gutterBottom

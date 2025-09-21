@@ -69,7 +69,6 @@ export default function AboutPage() {
             fontWeight: 500,
             mb: 4,
             letterSpacing: -1,
-            // fontStyle: "italic",
           }}
         >
           The Developers
@@ -127,7 +126,8 @@ export default function AboutPage() {
             mb: 2,
           }}
         >
-          Full stack developers passionate about creating simple pero elegante web applications.
+          Full stack developers passionate about creating simple pero elegante
+          web applications.
         </Typography>
 
         {/* Tabs */}
@@ -137,7 +137,6 @@ export default function AboutPage() {
           centered
           textColor="primary"
           indicatorColor="primary"
-
         >
           <Tab icon={<EmojiObjectsRoundedIcon />} label="Skills" />
           <Tab icon={<SchoolRoundedIcon />} label="Education" />
@@ -156,35 +155,100 @@ export default function AboutPage() {
               justifyContent: "center",
               maxWidth: 700,
               mx: "auto",
-              mb: -0.7
+              mb: -0.7,
             }}
           >
-            <Chip icon={<CodeIcon />} variant="outlined" label="JavaScript" color="primary"
-              sx={{ fontFamily: '"Inter", sans-serif' }} />
-            <Chip icon={<CodeIcon />} variant="outlined" label="Python" color="primary"
-              sx={{ fontFamily: '"Inter", sans-serif' }} />
-            <Chip icon={<CodeIcon />} variant="outlined" label="C++" color="primary"
-              sx={{ fontFamily: '"Inter", sans-serif' }} />
-            <Chip icon={<CodeIcon />} variant="outlined" label="Java" color="primary"
-              sx={{ fontFamily: '"Inter", sans-serif' }} />
-            <Chip icon={<CodeIcon />} variant="outlined" label="PHP" color="primary"
-              sx={{ fontFamily: '"Inter", sans-serif' }} />
-            <Chip icon={<WebIcon />} variant="outlined" label="React" color="secondary"
-              sx={{ fontFamily: '"Inter", sans-serif' }} />
-            <Chip icon={<DevicesIcon />} variant="outlined" label="HTML & CSS" color="secondary"
-              sx={{ fontFamily: '"Inter", sans-serif' }} />
-            <Chip icon={<StorageIcon />} variant="outlined" label="MySQL" color="secondary"
-              sx={{ fontFamily: '"Inter", sans-serif' }} />
-            <Chip icon={<StorageIcon />} variant="outlined" label="MongoDB" color="secondary"
-              sx={{ fontFamily: '"Inter", sans-serif' }} />
-            <Chip icon={<TerminalIcon />} variant="outlined" label="Node.js" color="secondary"
-              sx={{ fontFamily: '"Inter", sans-serif' }} />
-            <Chip icon={<BrushIcon />} variant="outlined" label="UI/UX Design" color="success"
-              sx={{ fontFamily: '"Inter", sans-serif' }} />
-            <Chip icon={<BugReportIcon />} variant="outlined" label="Debugging" color="success"
-              sx={{ fontFamily: '"Inter", sans-serif' }} />
-            <Chip icon={<BuildIcon />} variant="outlined" label="Git & GitHub" color="success"
-              sx={{ fontFamily: '"Inter", sans-serif' }} />
+            <Chip
+              icon={<CodeIcon />}
+              variant="outlined"
+              label="JavaScript"
+              color="primary"
+              sx={{ fontFamily: '"Inter", sans-serif' }}
+            />
+            <Chip
+              icon={<CodeIcon />}
+              variant="outlined"
+              label="Python"
+              color="primary"
+              sx={{ fontFamily: '"Inter", sans-serif' }}
+            />
+            <Chip
+              icon={<CodeIcon />}
+              variant="outlined"
+              label="C++"
+              color="primary"
+              sx={{ fontFamily: '"Inter", sans-serif' }}
+            />
+            <Chip
+              icon={<CodeIcon />}
+              variant="outlined"
+              label="Java"
+              color="primary"
+              sx={{ fontFamily: '"Inter", sans-serif' }}
+            />
+            <Chip
+              icon={<CodeIcon />}
+              variant="outlined"
+              label="PHP"
+              color="primary"
+              sx={{ fontFamily: '"Inter", sans-serif' }}
+            />
+            <Chip
+              icon={<WebIcon />}
+              variant="outlined"
+              label="React"
+              color="secondary"
+              sx={{ fontFamily: '"Inter", sans-serif' }}
+            />
+            <Chip
+              icon={<DevicesIcon />}
+              variant="outlined"
+              label="HTML & CSS"
+              color="secondary"
+              sx={{ fontFamily: '"Inter", sans-serif' }}
+            />
+            <Chip
+              icon={<StorageIcon />}
+              variant="outlined"
+              label="MySQL"
+              color="secondary"
+              sx={{ fontFamily: '"Inter", sans-serif' }}
+            />
+            <Chip
+              icon={<StorageIcon />}
+              variant="outlined"
+              label="MongoDB"
+              color="secondary"
+              sx={{ fontFamily: '"Inter", sans-serif' }}
+            />
+            <Chip
+              icon={<TerminalIcon />}
+              variant="outlined"
+              label="Node.js"
+              color="secondary"
+              sx={{ fontFamily: '"Inter", sans-serif' }}
+            />
+            <Chip
+              icon={<BrushIcon />}
+              variant="outlined"
+              label="UI/UX Design"
+              color="success"
+              sx={{ fontFamily: '"Inter", sans-serif' }}
+            />
+            <Chip
+              icon={<BugReportIcon />}
+              variant="outlined"
+              label="Debugging"
+              color="success"
+              sx={{ fontFamily: '"Inter", sans-serif' }}
+            />
+            <Chip
+              icon={<BuildIcon />}
+              variant="outlined"
+              label="Git & GitHub"
+              color="success"
+              sx={{ fontFamily: '"Inter", sans-serif' }}
+            />
           </Stack>
         </TabPanel>
 
@@ -249,9 +313,9 @@ export default function AboutPage() {
             maxWidth: 800,
           }}
         >
-          Novel Nest was built using React, Material-UI, and the
-          Open Library API.
-          <br />
+          Novel Nest was built using React, Material-UI, and the Open Library
+          API.
+          {"\n\n"}
           It features responsive design, dark theme, and modern UI components.
         </Typography>
       </Container>

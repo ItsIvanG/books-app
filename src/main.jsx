@@ -4,12 +4,11 @@ import { BrowserRouter } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
 
-// Theme with Instrument Serif as primary, Inter as secondary fallback
 const darkTheme = createTheme({
   palette: {
     mode: "dark",
     primary: {
-      main: "#CCCCFF", // your main color
+      main: "#CCCCFF",
     },
   },
   typography: {

@@ -9,6 +9,8 @@ import {
   Grid,
   Rating,
   Skeleton,
+  Box,
+  CircularProgress,
 } from "@mui/material";
 import axios from "axios";
 
@@ -41,27 +43,49 @@ export default function BookModal({ open, handleClose, book }) {
 
   return (
     <Dialog open={open} onClose={handleClose} maxWidth="sm" fullWidth>
-      <DialogTitle variant="h4"
-      sx={{
-        fontStyle: "italic",
-        color: "color.text.primary",
-      }}>{book.title}</DialogTitle>
+      <DialogTitle
+        variant="h4"
+        sx={{
+          fontStyle: "italic",
+          color: "text.primary",
+        }}
+      >
+        {book.title}
+      </DialogTitle>
       <DialogContent dividers>
         <Grid container spacing={2}>
           <Grid item xs={4}>
-            <img
-              src={
-                book.cover_i
-                  ? `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`
-                  : "https://via.placeholder.com/150x220?text=No+Cover"
-              }
-              alt={book.title}
-              style={{
-                width: "100%",
-                borderRadius: 8,
-              }}
-            />
+            {book.cover_i ? (
+              <Box
+                component="img"
+                src={`https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`}
+                alt={book.title}
+                sx={{
+                  width: 180,
+                  height: "auto",
+                  borderRadius: 2,
+                  display: "block",
+                  mx: "auto",
+                }}
+              />
+            ) : (
+              <Box
+                sx={{
+                  width: 180,
+                  height: 200,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  bgcolor: "grey.100",
+                  borderRadius: 2,
+                  mx: "auto",
+                }}
+              >
+                <CircularProgress />
+              </Box>
+            )}
           </Grid>
+
           <Grid item xs={8}>
             <Typography
               variant="subtitle1"
@@ -102,7 +126,11 @@ export default function BookModal({ open, handleClose, book }) {
         </Grid>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose} variant="outlined" sx={{ fontFamily: '"Instrument serif", serif' }}>
+        <Button
+          onClick={handleClose}
+          variant="outlined"
+          sx={{ fontFamily: '"Instrument Serif", serif' }}
+        >
           Close
         </Button>
       </DialogActions>

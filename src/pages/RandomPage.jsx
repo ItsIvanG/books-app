@@ -1,16 +1,10 @@
 import { useState } from "react";
-import {
-  Grid,
-  Typography,
-  Card,
-  CardContent,
-  Skeleton,
-  Button,
-  Box,
-} from "@mui/material";
+import { Grid, Typography, Button, Box } from "@mui/material";
 import axios from "axios";
 import BookCard from "../components/BookCard";
 import BookModal from "../components/BookModal";
+import BookCardSkeleton from "../components/BookCardSkeleton";
+import ShuffleIcon from "@mui/icons-material/Shuffle";
 
 const SUBJECTS = [
   "fiction",
@@ -67,28 +61,11 @@ export default function RandomPage() {
         key={book?.key || index}
         xs={12}
         sm={6}
-        md={2} // 6 per row
+        md={2}
         sx={{ display: "flex", justifyContent: "center" }}
       >
         {loading ? (
-          <Card sx={{ width: 190, height: 320 }}>
-            <Skeleton variant="rectangular" width="100%" height={180} />
-            <CardContent
-              sx={{
-                flexGrow: 1,
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-                p: 1,
-              }}
-            >
-              <div>
-                <Skeleton variant="text" sx={{ mt: 1 }} />
-                <Skeleton variant="text" width="60%" />
-              </div>
-              <Skeleton variant="text" width="40%" />
-            </CardContent>
-          </Card>
+          <BookCardSkeleton width={190} />
         ) : (
           <BookCard
             title={book.title}
@@ -107,7 +84,7 @@ export default function RandomPage() {
     <Box sx={{ mt: 5, fontFamily: '"Inter", sans-serif', mb: 10 }}>
       <Box
         sx={{
-          maxWidth: "80%", // same as navbar
+          maxWidth: "80%",
           mx: "auto",
           textAlign: "center",
         }}
@@ -142,17 +119,37 @@ export default function RandomPage() {
               variant="contained"
               onClick={handleSurprise}
               disabled={loading}
+              startIcon={<ShuffleIcon />}
             >
               {loading ? "Loading..." : "Surprise Me"}
             </Button>
           </Box>
         ) : (
           <>
+            <Typography variant="h3" gutterBottom>
+              Discover Something New
+            </Typography>
+            <Typography
+              variant="body2"
+              sx={{
+                fontFamily: '"Inter", sans-serif',
+                color: "text.secondary",
+                textAlign: "center",
+                maxWidth: 800,
+                mb: 4,
+                mx: "auto",
+              }}
+            >
+              Click the button below to get a random selection of books from
+              various genres.
+            </Typography>
+
             <Button
               variant="contained"
               onClick={handleSurprise}
               disabled={loading}
               sx={{ mb: 3 }}
+              startIcon={<ShuffleIcon />}
             >
               {loading ? "Loading..." : "Surprise Me Again"}
             </Button>

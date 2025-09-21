@@ -4,31 +4,53 @@ import {
   Typography,
   CardMedia,
   CardActionArea,
+  Box,
+  CircularProgress,
 } from "@mui/material";
+import { Star } from "@mui/icons-material";
 
-const BookCard = ({ title, author, year, coverUrl, rating, onClick, width = 180 }) => {
+const BookCard = ({
+  title,
+  author,
+  year,
+  coverUrl,
+  rating,
+  onClick,
+  width = 180,
+}) => {
   return (
     <Card
       sx={{
         width: {
-          xs: width, // mobile
-          sm: width + 20, // small screens
-          md: width + 40, // medium screens
+          xs: width,
+          sm: width + 20,
+          md: width + 40,
         },
         fontFamily: '"Inter", sans-serif',
       }}
     >
       <CardActionArea onClick={onClick}>
-        <CardMedia
-          component="img"
-          height="200"
-          image={
-            coverUrl
-              ? `https://covers.openlibrary.org/b/id/${coverUrl}-M.jpg`
-              : "https://via.placeholder.com/150x220?text=No+Cover"
-          }
-          alt={title}
-        />
+        {coverUrl ? (
+          <CardMedia
+            component="img"
+            height="200"
+            image={`https://covers.openlibrary.org/b/id/${coverUrl}-M.jpg`}
+            alt={title}
+          />
+        ) : (
+          <Box
+            sx={{
+              height: 200,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              bgcolor: "grey.100",
+            }}
+          >
+            <CircularProgress />
+          </Box>
+        )}
+
         <CardContent>
           <Typography
             variant="subtitle1"
@@ -45,15 +67,28 @@ const BookCard = ({ title, author, year, coverUrl, rating, onClick, width = 180 
           >
             {author}
           </Typography>
-          <Typography
-            variant="caption"
-            display="block"
-            gutterBottom
-            sx={{ fontFamily: '"Inter", sans-serif' }}
+
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
           >
-            {year || "N/A"}
-          </Typography>
-          {rating}
+            <Typography
+              variant="caption"
+              sx={{ fontFamily: '"Inter", sans-serif' }}
+            >
+              {year || "N/A"}
+            </Typography>
+
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              <Typography sx={{ mr: 0.5, fontFamily: '"Inter", sans-serif' }}>
+                {rating}
+              </Typography>
+              <Star fontSize="small" sx={{ color: "gold" }} />
+            </Box>
+          </Box>
         </CardContent>
       </CardActionArea>
     </Card>
