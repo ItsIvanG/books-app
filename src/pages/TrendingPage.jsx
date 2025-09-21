@@ -1,4 +1,11 @@
-import { Grid, Typography, Card, CardContent, Skeleton } from "@mui/material";
+import {
+  Grid,
+  Typography,
+  Card,
+  CardContent,
+  Skeleton,
+  Container,
+} from "@mui/material";
 import axios from "axios";
 import { useEffect } from "react";
 import BookCard from "../components/BookCard";
@@ -64,11 +71,16 @@ export default function TrendingPage() {
   const handleClose = () => setOpen(false);
 
   return (
-    <>
+    <Container>
       <Typography>Trending Books Today</Typography>
       <Grid container spacing={2}>
         {(loading ? Array.from(new Array(12)) : books).map((book, index) => (
-          <Grid item key={book?.key || index} size={3} sx={{ display: "flex" }}>
+          <Grid
+            item
+            key={book?.key || index}
+            size={{ xs: 12, sm: 6, md: 4, lg: 3 }}
+            sx={{ display: "flex" }}
+          >
             {loading ? (
               <Card sx={{ width: "100%" }}>
                 <CardContent>
@@ -169,6 +181,6 @@ export default function TrendingPage() {
         ))}
       </Grid>
       <BookModal open={open} handleClose={handleClose} book={selectedBook} />
-    </>
+    </Container>
   );
 }

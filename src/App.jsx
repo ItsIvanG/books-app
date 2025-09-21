@@ -5,7 +5,7 @@ import TrendingPage from "./pages/TrendingPage";
 import BrowsePage from "./pages/BrowsePage";
 import RandomPage from "./pages/RandomPage";
 import AboutPage from "./pages/AboutPage";
-
+import { Container } from "@mui/material";
 function App() {
   return (
     <>
