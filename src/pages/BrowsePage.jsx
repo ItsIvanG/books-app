@@ -18,7 +18,6 @@ export default function SearchPage() {
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // Modal state
   const [selectedBook, setSelectedBook] = useState(null);
   const [open, setOpen] = useState(false);
 
@@ -26,7 +25,6 @@ export default function SearchPage() {
     setSelectedBook(book);
     setOpen(true);
   };
-
   const handleClose = () => setOpen(false);
 
   const handleSearch = () => {
@@ -46,18 +44,57 @@ export default function SearchPage() {
         }));
         setResults(booksWithRatings);
       })
-      .catch((error) => {
-        console.error("Error searching books:", error);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+      .catch(console.error)
+      .finally(() => setLoading(false));
   };
 
   const hasSearched = results.length > 0 || loading;
+
+  const renderBookGrid = (data, count) =>
+    (loading ? Array.from(new Array(count)) : data).map((book, index) => (
+      <Grid
+        item
+        key={book?.key || index}
+        xs={12}
+        sm={6}
+        md={2} // 6 per row
+        sx={{ display: "flex", justifyContent: "center" }}
+      >
+        {loading ? (
+          <Card sx={{ width: 190, height: 320 }}>
+            <Skeleton variant="rectangular" width="100%" height={180} />
+            <CardContent
+              sx={{
+                flexGrow: 1,
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+                p: 1,
+              }}
+            >
+              <div>
+                <Skeleton variant="text" sx={{ mt: 1 }} />
+                <Skeleton variant="text" width="60%" />
+              </div>
+              <Skeleton variant="text" width="40%" />
+            </CardContent>
+          </Card>
+        ) : (
+          <BookCard
+            title={book.title}
+            author={book.author_name?.[0] || "Unknown Author"}
+            year={book.first_publish_year}
+            coverUrl={book.cover_i}
+            rating={book.rating}
+            onClick={() => handleOpen(book)}
+            width={190}
+          />
+        )}
+      </Grid>
+    ));
+
   return (
-    <>
-      {/* If user hasn't searched yet */}
+    <Box sx={{ mt: 5, fontFamily: '"Inter", sans-serif' }}>
       {!hasSearched ? (
         <Box
           sx={{
@@ -65,14 +102,12 @@ export default function SearchPage() {
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
-            height: "70vh", // full height center
+            height: "70vh",
           }}
         >
           <Typography variant="h3" align="center" gutterBottom>
             Browse Books
           </Typography>
-
-          {/* Search Bar under header */}
           <Box sx={{ display: "flex", gap: 2, mt: 3, width: "60%" }}>
             <TextField
               label="Search by Title"
@@ -92,9 +127,24 @@ export default function SearchPage() {
           </Box>
         </Box>
       ) : (
-        <>
-          {/* Search Bar (always on top once searched) */}
-          <Box sx={{ display: "flex", gap: 2, mb: 3 }}>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            maxWidth: "80%", // same as navbar
+            mx: "auto",
+          }}
+        >
+          {/* Search Bar */}
+          <Box
+            sx={{
+              display: "flex",
+              gap: 2,
+              mb: 3,
+              width: "96%",
+            }}
+          >
             <TextField
               label="Search by Title"
               variant="outlined"
@@ -112,50 +162,18 @@ export default function SearchPage() {
             </Button>
           </Box>
 
-          {/* Results header */}
-          <Typography variant="h6" align="center" gutterBottom>
+          <Typography variant="h6" align="center" gutterBottom sx={{ mb: 3 }} >
             {loading ? "Searching books..." : "Search Results"}
           </Typography>
 
-          <Grid container spacing={2}>
-            {(loading ? Array.from(new Array(24)) : results).map(
-              (book, index) => (
-                <Grid
-                  item
-                  key={book?.key || index}
-                  size={3}
-                  sx={{ display: "flex" }}
-                >
-                  {loading ? (
-                    <Card sx={{ width: "100%" }}>
-                      <CardContent>
-                        <Skeleton
-                          variant="rectangular"
-                          width="100%"
-                          height={140}
-                        />
-                        <Skeleton variant="text" sx={{ mt: 2 }} />
-                        <Skeleton variant="text" width="60%" />
-                      </CardContent>
-                    </Card>
-                  ) : (
-                    <BookCard
-                      title={book.title}
-                      author={book.author_name?.[0] || "Unknown Author"}
-                      year={book.first_publish_year}
-                      coverUrl={book.cover_i}
-                      rating={book.rating}
-                      onClick={() => handleOpen(book)}
-                    />
-                  )}
-                </Grid>
-              )
-            )}
+          {/* Results Grid */}
+          <Grid container spacing={2} sx={{ justifyContent: "center" }}>
+            {renderBookGrid(results, 24)}
           </Grid>
-        </>
+        </Box>
       )}
 
       <BookModal open={open} handleClose={handleClose} book={selectedBook} />
-    </>
+    </Box>
   );
 }

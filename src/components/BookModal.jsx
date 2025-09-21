@@ -41,7 +41,11 @@ export default function BookModal({ open, handleClose, book }) {
 
   return (
     <Dialog open={open} onClose={handleClose} maxWidth="sm" fullWidth>
-      <DialogTitle>{book.title}</DialogTitle>
+      <DialogTitle variant="h4"
+      sx={{
+        fontStyle: "italic",
+        color: "color.text.primary",
+      }}>{book.title}</DialogTitle>
       <DialogContent dividers>
         <Grid container spacing={2}>
           <Grid item xs={4}>
@@ -59,10 +63,19 @@ export default function BookModal({ open, handleClose, book }) {
             />
           </Grid>
           <Grid item xs={8}>
-            <Typography variant="subtitle1" gutterBottom>
+            <Typography
+              variant="subtitle1"
+              gutterBottom
+              sx={{ fontFamily: "Inter, sans-serif" }}
+            >
               Author: {book.author || "Unknown"}
             </Typography>
-            <Typography variant="body2" color="textSecondary" gutterBottom>
+            <Typography
+              variant="body2"
+              color="textSecondary"
+              gutterBottom
+              sx={{ fontFamily: "Inter, sans-serif" }}
+            >
               First Published: {book.year || "N/A"}
             </Typography>
             <Rating
@@ -71,7 +84,10 @@ export default function BookModal({ open, handleClose, book }) {
               precision={0.1}
               readOnly
             />
-            <Typography variant="body1" sx={{ mt: 2 }}>
+            <Typography
+              variant="body1"
+              sx={{ mt: 2, fontFamily: "Inter, sans-serif" }}
+            >
               {loadingDesc ? (
                 <>
                   <Skeleton width="80%" />
@@ -86,7 +102,7 @@ export default function BookModal({ open, handleClose, book }) {
         </Grid>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose} variant="outlined">
+        <Button onClick={handleClose} variant="outlined" sx={{ fontFamily: '"Instrument serif", serif' }}>
           Close
         </Button>
       </DialogActions>
