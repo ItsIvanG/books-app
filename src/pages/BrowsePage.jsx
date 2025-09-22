@@ -64,7 +64,7 @@ export default function SearchPage() {
           <Typography variant="h3" align="center" gutterBottom>
             Browse Books
           </Typography>
-          <Box sx={{ display: "flex", gap: 2, mt: 3, width: "60%" }}>
+          <Box sx={{ display: "flex", gap: 2, mt: 2, width: "60%" }}>
             <TextField
               label="Search by Title"
               variant="outlined"
@@ -88,12 +88,13 @@ export default function SearchPage() {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            maxWidth: "80%",
+            maxWidth: "90%",
             mx: "auto",
+            mb: 10,
           }}
         >
           {/* Search Bar */}
-          <Box sx={{ display: "flex", gap: 2, mb: 3, width: "96%" }}>
+          <Box sx={{ display: "flex", gap: 2, mb: 3, width: "95%" }}>
             <TextField
               label="Search by Title"
               variant="outlined"

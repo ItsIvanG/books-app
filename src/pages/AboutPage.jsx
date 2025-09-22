@@ -126,7 +126,7 @@ export default function AboutPage() {
             mb: 2,
           }}
         >
-          Full stack developers passionate about creating simple pero elegante
+          Full stack developers passionate about creating simple pero elepante
           web applications.
         </Typography>
 

@@ -84,7 +84,7 @@ export default function RandomPage() {
     <Box sx={{ mt: 5, fontFamily: '"Inter", sans-serif', mb: 10 }}>
       <Box
         sx={{
-          maxWidth: "80%",
+          maxWidth: "90%",
           mx: "auto",
           textAlign: "center",
         }}
@@ -148,7 +148,7 @@ export default function RandomPage() {
               variant="contained"
               onClick={handleSurprise}
               disabled={loading}
-              sx={{ mb: 3 }}
+              sx={{ mb: 5 }}
               startIcon={<ShuffleIcon />}
             >
               {loading ? "Loading..." : "Surprise Me Again"}
