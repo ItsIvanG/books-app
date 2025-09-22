@@ -6,6 +6,7 @@ import {
   CardActionArea,
   Box,
   CircularProgress,
+  Chip,
 } from "@mui/material";
 import { Star } from "@mui/icons-material";
 
@@ -17,10 +18,12 @@ const BookCard = ({
   rating,
   onClick,
   width = 180,
+  rank,
 }) => {
   return (
     <Card
       sx={{
+        position: "relative",
         width: {
           xs: width,
           sm: width + 20,
@@ -30,6 +33,20 @@ const BookCard = ({
       }}
     >
       <CardActionArea onClick={onClick}>
+        {rank && (
+          <Chip
+            label={`#${rank}`}
+            color="primary"
+            size="small"
+            sx={{
+              position: "absolute",
+              top: 8,
+              left: 8,
+              fontWeight: "bold",
+            }}
+          />
+        )}
+
         {coverUrl ? (
           <CardMedia
             component="img"

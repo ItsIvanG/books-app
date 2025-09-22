@@ -11,6 +11,7 @@ import {
   Skeleton,
   Box,
   CircularProgress,
+  Chip,
 } from "@mui/material";
 import axios from "axios";
 
@@ -44,14 +45,27 @@ export default function BookModal({ open, handleClose, book }) {
   return (
     <Dialog open={open} onClose={handleClose} maxWidth="sm" fullWidth>
       <DialogTitle
-        variant="h4"
         sx={{
           fontStyle: "italic",
           color: "text.primary",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
         }}
       >
-        {book.title}
+        <Typography variant="h4" component="span">
+          {book.title}
+        </Typography>
+
+        {book.rank && (
+          <Chip
+            label={`#${book.rank} Trending`}
+            color="primary"
+            sx={{ ml: 2, fontWeight: "bold" }}
+          />
+        )}
       </DialogTitle>
+
       <DialogContent dividers>
         <Grid container spacing={2}>
           <Grid item xs={4}>

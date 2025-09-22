@@ -53,7 +53,7 @@ export default function TrendingPage() {
   };
   const handleClose = () => setOpen(false);
 
-  const renderBookGrid = (data, loadingCount) =>
+  const renderBookGrid = (data, loadingCount, withRank = false) =>
     (loading ? Array.from(new Array(loadingCount)) : data).map(
       (book, index) => (
         <Grid
@@ -73,7 +73,10 @@ export default function TrendingPage() {
               year={book.first_publish_year}
               coverUrl={book.cover_i}
               rating={book.rating}
-              onClick={() => handleOpen(book)}
+              rank={withRank ? index + 1 : null}
+              onClick={() =>
+                handleOpen({ ...book, rank: withRank ? index + 1 : null })
+              }
               width={180}
             />
           )}
@@ -88,21 +91,25 @@ export default function TrendingPage() {
         mt: 5,
         fontFamily: '"Inter", sans-serif',
         px: "5%",
-        maxWidth: "80%",
+        maxWidth: "90%",
         mb: 10,
       }}
     >
-      <Typography variant="h2" gutterBottom sx={{ fontWeight: 500, mb: 5 }}>
+      <Typography
+        variant="h2"
+        gutterBottom
+        sx={{ fontWeight: 500, mb: 5, ml: 5 }}
+      >
         Trending Books Today
       </Typography>
       <Grid container spacing={2} sx={{ justifyContent: "center" }}>
-        {renderBookGrid(books, 12)}
+        {renderBookGrid(books, 12, true)}
       </Grid>
 
       <Typography
         variant="h2"
         gutterBottom
-        sx={{ mt: 6, fontWeight: 500, mb: 5 }}
+        sx={{ mt: 6, fontWeight: 500, mb: 5, ml: 5 }}
       >
         Popular Fiction
       </Typography>
@@ -113,7 +120,7 @@ export default function TrendingPage() {
       <Typography
         variant="h2"
         gutterBottom
-        sx={{ mt: 6, fontWeight: 500, mb: 5 }}
+        sx={{ mt: 6, fontWeight: 500, mb: 5, ml: 5 }}
       >
         Science & Technology
       </Typography>
@@ -124,7 +131,7 @@ export default function TrendingPage() {
       <Typography
         variant="h2"
         gutterBottom
-        sx={{ mt: 6, fontWeight: 500, mb: 5 }}
+        sx={{ mt: 6, fontWeight: 500, mb: 5, ml: 5 }}
       >
         History & Biography
       </Typography>
